@@ -7,10 +7,11 @@ import (
 	"strings"
 
 	"github.com/blang/semver"
+	"github.com/csrwng/versionproxy/pkg/dockerproxy"
 )
 
 func New() http.Handler {
-	return nil
+	return dockerproxy.New(modifyVersion)
 }
 
 func modifyVersion(req *http.Request, w http.ResponseWriter) http.ResponseWriter {
@@ -70,6 +71,6 @@ func (w *responseWriterWrapper) Write(data []byte) (int, error) {
 		fmt.Printf("error encoding version data: %v\n", err)
 		return w.internal.Write(data)
 	}
-	fmt.Printf("Modified version %s to %s\n", versionData["Version"])
+	fmt.Printf("Modified version %s to %s\n", versionStr, versionData["Version"])
 	return w.internal.Write(newData)
 }

@@ -22,7 +22,7 @@ func main() {
 	} else {
 		listenSpec = args[1]
 	}
-	fmt.Printf("Starting version proxy on %s", listenSpec)
+	fmt.Printf("Starting version proxy on %s\n", listenSpec)
 	err := http.ListenAndServe(listenSpec, versionproxy.New())
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
